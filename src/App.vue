@@ -1,5 +1,10 @@
 <template>
-  <el-button type="primary">el-button</el-button>
+  <div>
+    <router-link to="/">Home</router-link>
+    <span> | </span>
+    <router-link to="/about">About</router-link>
+  </div>
+  <router-view />
 </template>
 
 <script>
