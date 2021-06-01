@@ -1,6 +1,30 @@
 #app {
   .siderbar-container {
-    width: $sideBarWidth !important;
     height: 100%;
+    background-color: $menuBg;
+
+    &-menu:not(.el-menu--collapse) {
+      width: $sideBarWidth;
+    }
+
+    .el-menu--collapse {
+      .submenu-title {
+        display: none;
+      }
+    }
+
+    .el-submenu {
+      .el-menu {
+        .el-menu-item {
+          background-color: $subMenuBg !important;
+          &:hover {
+            background-color: $subMenuHover !important;
+          }
+        }
+      }
+    }
+    .el-menu {
+      border: none;
+    }
   }
 }
