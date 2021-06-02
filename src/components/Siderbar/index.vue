@@ -40,7 +40,11 @@ export default defineComponent({
     const route = useRoute()
     // 根据路由路径对应当前激活的菜单，当页面刷新之后激活当前匹配的菜单
     const activeMenu = computed(() => {
-      const { path } = route
+      const { path, meta } = route
+      // 根据activeMenu置顶当前路由激活时让哪个菜单高亮
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
       return path
     })
     // scss变量
