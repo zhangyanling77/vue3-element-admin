@@ -5,7 +5,7 @@
   >
     <!-- 只渲染一个路由 并且路由只有一个子路由时直接渲染这个子路由-->
     <template
-      v-if="theOnlyOneChildRoute && (!theOnlyOneChildRoute.children || theOnlyOneChildRoute.noShowingChildren)"
+      v-if="isRenderSingleRoute && theOnlyOneChildRoute"
     >
       <sidebar-item-link
         v-if="theOnlyOneChildRoute.meta"
@@ -94,10 +94,12 @@ export default defineComponent({
       // showingChildNumber === 0 无可渲染的子路由 无可渲染chiildren时 把当前路由item作为仅有的子路由渲染
       return {
         ...props.item,
-        path: '', // resolvePath避免resolve拼接时 拼接重复
-        noShowingChildren: true
+        path: '' // resolvePath避免resolve拼接时 拼接重复
       }
     })
+
+    // 是否有可渲染子路由
+    const noShowingChildren = computed(() => showingChildNumber.value === 0)
 
     // menu icon
     const icon = computed(() => {
@@ -112,6 +114,14 @@ export default defineComponent({
       }
       return path.resolve(props.basePath, childPath)
     }
+    // alwaysShow 一直显示根路由
+    const alwaysShowRootMenu = computed(
+      () => props.item.meta && props.item.meta.alwaysShow
+    )
+    // 是否只有一条可渲染路由
+    const isRenderSingleRoute = computed(
+      () => !alwaysShowRootMenu.value && (!theOnlyOneChildRoute.value?.children || noShowingChildren.value)
+    )
 
     return {
       theOnlyOneChildRoute,
@@ -121,7 +131,8 @@ export default defineComponent({
         marginRight: '16px',
         marginLeft: '5px',
         verticalAlign: 'middle'
-      }
+      },
+      isRenderSingleRoute
     }
   }
 })
