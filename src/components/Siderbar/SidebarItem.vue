@@ -1,13 +1,22 @@
 <template>
   <div class="sidebar-item-container">
-    <!-- 一个路由下只有一个子路由时，只渲染这个子路由 -->
-    <template v-if="theOnlyOneChildRoute && !theOnlyOneChildRoute.children">
-      <el-menu-item :index="resolvePath(theOnlyOneChildRoute.path)">
-        <i v-if="icon" :class="icon" :style="menuIcon"></i>
-        <template #title>
-          <span>{{theOnlyOneChildRoute.meta.title}}</span>
-        </template>
-      </el-menu-item>
+    <!-- 只渲染一个路由 并且路由只有一个子路由时直接渲染这个子路由-->
+    <template
+      v-if="theOnlyOneChildRoute && !theOnlyOneChildRoute.children"
+    >
+      <sidebar-item-link
+        v-if="theOnlyOneChildRoute.meta"
+        :to="resolvePath(theOnlyOneChildRoute.path)"
+      >
+        <el-menu-item
+          :index="resolvePath(theOnlyOneChildRoute.path)"
+        >
+          <i v-if="icon" :class="icon" :style="menuIcon"></i>
+          <template #title>
+            <span>{{theOnlyOneChildRoute.meta.title}}</span>
+          </template>
+        </el-menu-item>
+      </sidebar-item-link>
     </template>
     <!-- 多个子路由 -->
     <el-submenu
@@ -34,9 +43,14 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 import path from 'path'
+import SidebarItemLink from './SidebarItemLink.vue'
+import { isExternal } from '@/utils/validate'
 
 export default defineComponent({
   name: 'SidebarItem',
+  components: {
+    SidebarItemLink
+  },
   props: {
     item: {
       type: Object as PropType<RouteRecordRaw>,
@@ -60,7 +74,7 @@ export default defineComponent({
       })
       return children.length
     })
-
+    // 只有一个可渲染的子路由直接渲染这个子路由 （由于我们有的路由 layout布局组件是一级路由 二级路由才是我们要渲染成菜单）
     const theOnlyOneChildRoute = computed(() => {
       // 多个children时，直接返回null，多个children时递归
       if (showingChildNumber.value > 1) {
@@ -69,7 +83,7 @@ export default defineComponent({
       // 只有一个子路由 筛选meta中有没有hidden属性，比如login、404等页面是不需要渲染成菜单的
       if (item.value.children) {
         for (const child of item.value.children) {
-          if (!child.meta || !child.meta.hidden) {
+          if (!child.meta || !child.meta.hidden) { // hidden属性控制路由是否渲染成菜单
             return child
           }
         }
@@ -88,6 +102,10 @@ export default defineComponent({
     })
     // 利用path.resolve 根据父路径+子路径 解析成正确路径 子路径可能是相对的 resolvePath 在模板中使用
     const resolvePath = (childPath: string) => {
+      // 如果是外链直接返回
+      if (isExternal(childPath)) {
+        return childPath
+      }
       return path.resolve(props.basePath, childPath)
     }
 
