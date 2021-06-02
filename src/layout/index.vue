@@ -12,19 +12,19 @@
           tagsview
         </div>
       </div>
-      <div class="app-main">
-        <router-view></router-view>
-      </div>
+      <app-main />
     </div>
   </div>
 </template>
 
 <script>
 import Sidebar from '@/components/Siderbar'
+import AppMain from '@/components/AppMain'
 
 export default {
   components: {
-    Sidebar
+    Sidebar,
+    AppMain
   }
 }
 </script>

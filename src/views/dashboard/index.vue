@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Dashboard</h1>
+    缓存测试：<input type="text">
   </div>
 </template>
 
