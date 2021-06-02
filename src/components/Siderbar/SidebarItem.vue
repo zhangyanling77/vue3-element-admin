@@ -106,11 +106,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.sidebar-item-container {
-  .menu-icon {
-    margin-right: 16px;
-    margin-left: 5px;
-    vertical-align: middle;
-  }
-}
+.sidebar-item-container {}
 </style>
