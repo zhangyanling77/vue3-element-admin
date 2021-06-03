@@ -5,9 +5,7 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <div class="navbar">
-          navbar
-        </div>
+          <navbar />
         <div class="tags-view">
           tagsview
         </div>
@@ -20,11 +18,13 @@
 <script>
 import Sidebar from '@/components/Siderbar'
 import AppMain from '@/components/AppMain'
+import Navbar from '@/components/Navbar'
 
 export default {
   components: {
     Sidebar,
-    AppMain
+    AppMain,
+    Navbar
   }
 }
 </script>
@@ -39,11 +39,6 @@ export default {
       display: flex;
       flex-direction: column;
       .header {
-        background-color: #eee;
-        .navbar {
-          height: 60px;
-          background-color: #fff;
-        }
         .tags-view {
           height: 40px;
         }

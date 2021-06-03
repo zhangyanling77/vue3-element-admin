@@ -30,8 +30,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "guide" */ '../views/guide/index.vue'),
         meta: {
           title: 'Guide',
-          icon: 'el-icon-guide',
-          activeMenu: '/documentation/index'
+          icon: 'el-icon-guide'
+          // activeMenu: '/documentation/index'
         }
       }
     ]
@@ -52,7 +52,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Menu Management',
           icon: 'el-icon-menu',
-          hidden: true
+          hidden: false
         }
       },
       {
@@ -61,7 +61,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Role Management',
           icon: 'el-icon-s-management',
-          hidden: true
+          hidden: false
         }
       },
       {

@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { ElButton, ElMessage, ElMessageBox, ElNotification, ElMenu, ElMenuItem, ElSubmenu } from 'element-plus'
+import { ElButton, ElMessage, ElMessageBox, ElNotification, ElMenu, ElMenuItem, ElSubmenu, ElRow, ElCol, ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 // Element Plus 组件内部默认使用英语
 // https://element-plus.gitee.io/#/zh-CN/component/i18n
@@ -20,7 +20,11 @@ export default (app: App): void => {
     ElNotification,
     ElMenu,
     ElMenuItem,
-    ElSubmenu
+    ElSubmenu,
+    ElRow,
+    ElCol,
+    ElBreadcrumb,
+    ElBreadcrumbItem
   ]
 
   components.forEach(component => {
